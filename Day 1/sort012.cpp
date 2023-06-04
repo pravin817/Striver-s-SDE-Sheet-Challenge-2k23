@@ -1,0 +1,95 @@
+// Link : https://www.codingninjas.com/codestudio/problems/sort-0-1-2_8230695?challengeSlug=striver-sde-challenge&leftPanelTab=0
+
+
+// Approach 1 : By Using Sorting
+
+void sort012(int *arr, int n)
+{
+    // Approach 1 By using the sorting ---> Not recommended
+
+    sort(arr, arr + n);
+}
+
+// Approach : 2 By using the counting sort
+
+void sort012(int *arr, int n)
+{
+    int count0, count1, count2;
+
+    count0 = count1 = count2 = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == 0)
+            count0++;
+        else if (arr[i] == 1)
+            count1++;
+        else
+            count2++;
+    }
+
+    // Now rearrage the array
+
+    for (int i = 0; i < count0; i++)
+    {
+        arr[i] = 0;
+    }
+
+    for (int i = count0; i < count0 + count1; i++)
+    {
+        arr[i] = 1;
+    }
+
+    for (int i = count0 + count1; i < count0 + count1 + count2; i++)
+    {
+        arr[i] = 2;
+    }
+}
+
+/*
+    Analysis:
+    Time Complexity: O(n)
+    Space Complexity : O(1)
+*/
+
+// Approach 3 - By Using Dutch National Flag Algorithm
+
+void sort012(int *arr, int n)
+{
+    int low = 0;
+    int high = n - 1;
+    int mid = 0;
+
+    while (mid <= high)
+    {
+        switch (arr[mid])
+        {
+
+        // If the element is 0
+        case 0:
+            swap(arr[low], arr[mid]);
+            low++;
+            mid++;
+            break;
+
+            // If the element is 1
+
+        case 1:
+            mid++;
+            break;
+
+            // If the element is 2
+
+        case 2:
+            swap(arr[mid], arr[high]);
+            high--;
+            break;
+        }
+    }
+}
+
+/*
+   Analysis:
+   Time Complexity : O(n)
+   Sapce Complexity : O(1)
+*/
