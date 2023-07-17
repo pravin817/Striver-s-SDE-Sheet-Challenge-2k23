@@ -1,0 +1,79 @@
+/*
+    Question No : 1 - Zero Matrix
+    Problem Link : https://www.codingninjas.com/studio/problems/zero-matrix_1171153?leftPanelTab=0
+    Date : 04/06/2023
+*/
+
+#include <bits/stdc++.h>
+vector<vector<int>> zeroMatrix(vector<vector<int>> &matrix, int n, int m)
+{
+
+    // OPtimal Solution
+
+    // int row[n] = {0};  matrix[0][..]
+    // int col[m] = {0};  matrix[...][0]
+
+    // now find the position of the rows and the columns
+
+    int col0 = 1;
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (matrix[i][j] == 0)
+            {
+                matrix[i][0] = 0;
+
+                if (j != 0)
+                {
+                    matrix[0][j] = 0;
+                }
+                else
+                {
+                    col0 = 0;
+                }
+            }
+        }
+    }
+
+    // Now make the rows and the columns to the zero
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if (matrix[i][0] == 0 || matrix[0][j] == 0)
+            {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    // if the matrix[0][0] == 0 make the row = 0
+
+    if (matrix[0][0] == 0)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            matrix[0][j] = 0;
+        }
+    }
+
+    // now the column
+
+    if (col0 == 0)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            matrix[i][0] = 0;
+        }
+    }
+
+    return matrix;
+}
+
+/*
+    Analysis:
+    Time Complexity : O(n*m)  ====> O(n*m) + O(n*m)
+    Space Complexity : O(max(n,m))  ====> O(n) + O(m)
+*/

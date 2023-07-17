@@ -1,0 +1,70 @@
+/*
+    Problem Link : https://www.codingninjas.com/studio/problems/remove-duplicates-from-sorted-array_8230811?challengeSlug=striver-sde-challenge&leftPanelTab=0
+
+*/
+
+// #include<bits/stdc++.h>
+
+// int removeDuplicates(vector<int> &arr, int n) {
+// 	// Brute force use map or set
+
+// 	map<int,int>mp;
+
+// 	for(int i = 0;i<n;i++){
+// 		mp[arr[i]]++;
+// 	}
+
+// 	return mp.size();
+// }
+
+// /*
+// 	Analysis:
+// 	Time Complexity : O(nlogn)
+// 	Space Complexity : O(n)
+// */
+
+// Using the set
+
+#include <bits/stdc++.h>
+
+int removeDuplicates(vector<int> &arr, int n)
+{
+    // Using the set
+
+    set<int> s;
+
+    for (int i = 0; i < n; i++)
+    {
+        s.insert(arr[i]);
+    }
+
+    return s.size();
+}
+
+/*
+    Analysis:
+    Time Complexity : O(nlogn)
+    Space Complexity : O(n)
+*/
+
+/*
+
+#include<bits/stdc++.h>
+
+int removeDuplicates(vector<int> &arr, int n) {
+    int count = 1;
+
+    for(int i = 1;i<n;i++){
+        if(arr[i]!=arr[i-1]){
+            count++;
+        }
+    }
+
+    return count;
+}
+
+/*
+    Analysis:
+    Time Complexity : O(n)
+    Space Complexity : O(1)
+*/

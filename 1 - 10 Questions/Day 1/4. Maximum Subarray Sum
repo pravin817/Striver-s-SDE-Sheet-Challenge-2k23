@@ -1,0 +1,133 @@
+/*
+    Question No : 4 - Maximum Subarray Sum
+    Problem Link : https://www.codingninjas.com/studio/problems/maximum-subarray-sum_8230694?challengeSlug=striver-sde-challenge&leftPanelTab=0
+    Date : 05/06/2023
+*/
+
+#include <bits/stdc++.h>
+
+// Brute Force
+long long maxSubarraySum(int arr[], int n)
+{
+    long long maxi = 0;
+    long long sum = 0;
+
+    // I need to traverse complete array
+
+    for (int i = 0; i < n; i++)
+    {
+        sum = 0;
+        for (int j = i; j < n; j++)
+        {
+            sum += arr[j];
+
+            maxi = max(maxi, sum);
+        }
+    }
+
+    return maxi;
+}
+
+/*
+    Analysis:
+    Time Complexity : O(n^2)
+    Space Complexity : O(1)
+*/
+
+// Optimised
+
+#include <bits/stdc++.h>
+long long maxSubarraySum(int arr[], int n)
+{
+    long long maxi = LONG_MIN;
+    long long sum = 0;
+
+    // I need to traverse complete array
+
+    for (int i = 0; i < n; i++)
+    {
+
+        // find the sum
+        sum += arr[i];
+
+        // update the maxi
+        maxi = max(maxi, sum);
+
+        // If the sum goes to -ve make it 0
+
+        if (sum < 0)
+        {
+            sum = 0;
+        }
+    }
+
+    // now check if the maximum subarray is -ve then update it to 0
+
+    return maxi > 0 ? maxi : 0;
+}
+
+/*
+    Analysis:
+    Time Complexity : O(n)
+    Space Complexity : O(1)
+*/
+
+// ************* FOLLOW UP ***********
+
+#include <bits/stdc++.h>
+long long maxSubarraySum(int arr[], int n)
+{
+    long long maxi = LONG_MIN;
+    long long sum = 0;
+
+    // Follow Up ----> print the array
+
+    int start = 0;
+    int ansStart = -1, ansEnd = -1;
+    // I need to traverse complete array
+
+    for (int i = 0; i < n; i++)
+    {
+
+        // if the sum == 0 then the new subarray started
+        if (sum == 0)
+        {
+            start = i;
+        }
+
+        // find the sum
+        sum += arr[i];
+
+        // update the maxi
+        if (sum > maxi)
+        {
+            maxi = sum;
+            ansStart = start;
+            ansEnd = i;
+        }
+
+        // If the sum goes to -ve make it 0
+
+        if (sum < 0)
+        {
+            sum = 0;
+        }
+    }
+
+    cout << "Printing the subarray : [";
+
+    for (int i = ansStart; i <= ansEnd; i++)
+    {
+        cout << arr[i] << " ";
+    }
+    cout << " ]";
+
+    // now check if the maximum subarray is -ve then update it to 0
+    return maxi > 0 ? maxi : 0;
+}
+
+/*
+    Analysis:
+    Time Complexity : O(n)
+    Space Complexity : O(1)
+*/
