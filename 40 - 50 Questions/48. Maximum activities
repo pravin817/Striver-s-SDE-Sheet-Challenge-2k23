@@ -1,0 +1,43 @@
+/*
+    Problem No : 48
+    Link : https://www.codingninjas.com/studio/problems/maximum-activities_1062712
+*/
+
+#include <algorithm>
+
+int maximumActivities(vector<int> &start, vector<int> &finish)
+{
+    // total number of the activities
+    int n = start.size();
+
+    vector<pair<int, int>> activity(n);
+
+    for (int i = 0; i < n; i++)
+    {
+        activity[i].first = finish[i];
+        activity[i].second = start[i];
+    }
+
+    // Sort the activities based on end time
+    sort(activity.begin(), activity.end());
+
+    int maxActivity = 1;
+    int currentTime = activity[0].first;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (activity[i].second >= currentTime)
+        {
+            maxActivity++;
+            currentTime = activity[i].first;
+        }
+    }
+
+    return maxActivity;
+}
+
+/*
+    Analysis:
+    Time Complexity : O(nlogn)
+    Space Complexity : O(n)
+*/

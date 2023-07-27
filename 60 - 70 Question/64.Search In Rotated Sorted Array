@@ -1,0 +1,108 @@
+/*
+    Problem No : 64
+    Link : https://www.codingninjas.com/studio/problems/search-in-rotated-sorted-array_8230687?challengeSlug=striver-sde-challenge
+*/
+
+// Brute force solution ====> Linear search  ====> gives TLE
+
+int Solution1(int arr[], int n, int k)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] == k)
+        {
+            return i;
+        }
+    }
+
+    return -1;
+}
+/*
+    Analysis:
+    Time Complexity : O(n)
+    Space Complexity : O(1)
+*/
+
+// step : 1 ==> find the index at which the we need to rotate the array
+// step : 2 ==> check if the element is present in that search space
+
+int findPivot(int arr[], int n)
+{
+    int low = 0;
+    int high = n - 1;
+
+    while (low < high)
+    {
+        // find the mid
+
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] >= arr[0])
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid;
+        }
+    }
+
+    return high;
+}
+
+int BinarySearch(int arr[], int s, int e, int k)
+{
+    int low = s;
+    int high = e;
+
+    while (low <= high)
+    {
+        // find the mid
+
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == k)
+        {
+            return mid;
+        }
+        else if (arr[mid] > k)
+        {
+            high = mid - 1;
+        }
+        else
+        {
+            low = mid + 1;
+        }
+    }
+
+    return -1;
+}
+
+// As the array is sorted and rotated we can think of the binary search
+int Solution2(int arr[], int n, int k)
+{
+
+    // find the pivot index
+
+    int pivot = findPivot(arr, n);
+
+    if (k >= arr[pivot] && k <= arr[n - 1])
+    {
+        return BinarySearch(arr, pivot, n, k);
+    }
+    else
+    {
+        return BinarySearch(arr, 0, pivot - 1, k);
+    }
+}
+
+/*
+    Analysis:
+    Time Complexity : O(logn)
+    Space Complexity : O(1)
+*/
+
+int search(int *arr, int n, int key)
+{
+    return Solution2(arr, n, key);
+}
